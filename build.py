@@ -107,7 +107,7 @@ HERO = """
     <sup>2</sup>Changan Automobile
   </p>
   <div class="badges">
-    <a class="badge" href="#"><span>Paper</span></a>
+    <a class="badge" href="static/FlowR2A.pdf"><span>Paper</span></a>
     <a class="badge" href="#"><span>arXiv</span></a>
     <a class="badge" href="https://github.com/lixirui142/FlowR2A"><span>Code</span></a>
     <a class="badge" href="#bibtex"><span>BibTeX</span></a>

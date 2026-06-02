@@ -14,6 +14,69 @@
     });
   });
 
+  // ---- Carousel: collapse long galleries into a single-slide window ----
+  function buildCarousel(slides, header) {
+    var wrap = document.createElement('div');
+    wrap.className = 'carousel';
+    wrap.tabIndex = 0;
+    wrap.innerHTML =
+      '<button type="button" class="carousel-btn carousel-prev" aria-label="Previous">‹</button>' +
+      '<div class="carousel-viewport">' +
+        '<div class="carousel-track"></div>' +
+        '<div class="carousel-counter"></div>' +
+      '</div>' +
+      '<button type="button" class="carousel-btn carousel-next" aria-label="Next">›</button>';
+    var viewport = wrap.querySelector('.carousel-viewport');
+    var track = wrap.querySelector('.carousel-track');
+    var counter = wrap.querySelector('.carousel-counter');
+    var prev = wrap.querySelector('.carousel-prev');
+    var next = wrap.querySelector('.carousel-next');
+
+    // Move the compare-header inside the viewport so its 4 columns line up
+    // with the slide's content (the arrow buttons occupy outer grid cells).
+    if (header) viewport.insertBefore(header, track);
+
+    slides.forEach(function (s) {
+      s.classList.remove('active');
+      track.appendChild(s);
+    });
+
+    var cur = 0;
+    function show(i) {
+      cur = (i + slides.length) % slides.length;
+      slides.forEach(function (s, j) { s.classList.toggle('active', j === cur); });
+      counter.textContent = (cur + 1) + ' / ' + slides.length;
+    }
+    prev.addEventListener('click', function () { show(cur - 1); });
+    next.addEventListener('click', function () { show(cur + 1); });
+    wrap.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { show(cur - 1); e.preventDefault(); }
+      else if (e.key === 'ArrowRight') { show(cur + 1); e.preventDefault(); }
+    });
+    show(0);
+    return wrap;
+  }
+
+  function carouselize(container, slideSelector) {
+    if (!container) return;
+    var slides = Array.from(container.querySelectorAll(slideSelector));
+    if (slides.length < 2) return; // nothing to gain from a 1-slide carousel
+    var header = container.querySelector(':scope > .compare-header');
+    var carousel = buildCarousel(slides, header);
+    // Remove the original grids and the "Show N more" details that held these slides.
+    container.querySelectorAll('.video-grid, .more-list, details.more').forEach(function (el) {
+      el.parentNode && el.parentNode.removeChild(el);
+    });
+    container.appendChild(carousel);
+  }
+
+  // Videos: one carousel for the whole #videos gallery.
+  carouselize(document.getElementById('videos'), '.video-card');
+  // Frames: one carousel per subsection (Forward / Turning).
+  document.querySelectorAll('#frames .subsection, section.subsection').forEach(function (sub) {
+    carouselize(sub, '.frame-card');
+  });
+
   // ---- Lightbox ----
   var lb = document.createElement('div');
   lb.className = 'lightbox';

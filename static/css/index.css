@@ -496,6 +496,7 @@ details.more > .more-list { margin-top: 16px; }
   color: var(--muted);
   font-size: 14px;
   margin: 8px 0 0;
+  text-align: center;
 }
 @media (max-width: 800px) {
   .exp-grid { grid-template-columns: 1fr; }
@@ -558,7 +559,7 @@ details.more > .more-list { margin-top: 16px; }
 }
 .sampling-stage img {
   max-width: 100%;
-  max-height: 360px;
+  max-height: 300px;
   width: auto;
   height: auto;
   display: block;

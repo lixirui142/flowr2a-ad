@@ -25,7 +25,6 @@
     <sup>2</sup>Changan Automobile
   </p>
   <div class="badges">
-    <a class="badge" href="static/FlowR2A.pdf"><span>Paper</span></a>
     <a class="badge" href="#"><span>arXiv</span></a>
     <a class="badge" href="https://github.com/lixirui142/FlowR2A"><span>Code</span></a>
     <a class="badge" href="#bibtex"><span>BibTeX</span></a>
@@ -60,7 +59,7 @@
     comparisons against DiffusionDrive, DiffusionDriveV2, and iPad on NAVSIM navtest.
   </p>
 
-  <h3 class="gallery-title results-subhead">Proposal quality</h3>
+  <h3 class="gallery-title results-subhead" style="margin-top:8px">Proposal quality</h3>
   <p class="section-desc">FlowR2A produces consistently high-quality proposal candidates, surpassing the prior multimodal planner iPad on both single and average proposal quality.</p>
   <div class="exp-card exp-full">
     <img src="static/images/topk_comparison_linear_v2.png" alt="top-k comparison">
@@ -89,6 +88,44 @@
       <p class="sampling-hint">Higher <em>r<sub>high</sub></em> guides proposals toward higher-reward regions; higher <em>t<sub>init</sub></em> introduces more sampling diversity around the anchor.</p>
     </div>
   </div>
+
+  <h3 class="gallery-title results-subhead">Training reward visualization</h3>
+  <p class="section-desc">Fine-grained reward labels used in training partition dense trajectories in complementary ways, exposing rich signals for the model to internalize action-reward correlations.</p>
+  <section class="gallery reward-gallery" id="train-rewards">
+    <div class="reward-header">
+      <div>BEV view</div>
+      <div>PDMS</div>
+      <div>EP</div>
+      <div>HC</div>
+      <div>Ego-area</div>
+      <div>TTC-time</div>
+    </div>
+    <div class="reward-scene-card">
+      <div class="reward-grid">
+        <img src="static/train_rewards/c5bdf922a7c75e46_bev.png" alt="Reward visualization 1 BEV view" data-caption="Reward visualization 1 BEV view" loading="lazy"><img src="static/train_rewards/c5bdf922a7c75e46_pdms.png" alt="Reward visualization 1 PDMS" data-caption="Reward visualization 1 PDMS" loading="lazy"><img src="static/train_rewards/c5bdf922a7c75e46_ep.png" alt="Reward visualization 1 EP" data-caption="Reward visualization 1 EP" loading="lazy"><img src="static/train_rewards/c5bdf922a7c75e46_hc.png" alt="Reward visualization 1 HC" data-caption="Reward visualization 1 HC" loading="lazy"><img src="static/train_rewards/c5bdf922a7c75e46_ego_areas.png" alt="Reward visualization 1 Ego-area" data-caption="Reward visualization 1 Ego-area" loading="lazy"><img src="static/train_rewards/c5bdf922a7c75e46_ttc_time.png" alt="Reward visualization 1 TTC-time" data-caption="Reward visualization 1 TTC-time" loading="lazy">
+      </div>
+    </div>
+    <div class="reward-scene-card">
+      <div class="reward-grid">
+        <img src="static/train_rewards/0a678d2136b35b56_bev.png" alt="Reward visualization 2 BEV view" data-caption="Reward visualization 2 BEV view" loading="lazy"><img src="static/train_rewards/0a678d2136b35b56_pdms.png" alt="Reward visualization 2 PDMS" data-caption="Reward visualization 2 PDMS" loading="lazy"><img src="static/train_rewards/0a678d2136b35b56_ep.png" alt="Reward visualization 2 EP" data-caption="Reward visualization 2 EP" loading="lazy"><img src="static/train_rewards/0a678d2136b35b56_hc.png" alt="Reward visualization 2 HC" data-caption="Reward visualization 2 HC" loading="lazy"><img src="static/train_rewards/0a678d2136b35b56_ego_areas.png" alt="Reward visualization 2 Ego-area" data-caption="Reward visualization 2 Ego-area" loading="lazy"><img src="static/train_rewards/0a678d2136b35b56_ttc_time.png" alt="Reward visualization 2 TTC-time" data-caption="Reward visualization 2 TTC-time" loading="lazy">
+      </div>
+    </div>
+    <div class="reward-scene-card">
+      <div class="reward-grid">
+        <img src="static/train_rewards/0903fc3023d85dd9_bev.png" alt="Reward visualization 3 BEV view" data-caption="Reward visualization 3 BEV view" loading="lazy"><img src="static/train_rewards/0903fc3023d85dd9_pdms.png" alt="Reward visualization 3 PDMS" data-caption="Reward visualization 3 PDMS" loading="lazy"><img src="static/train_rewards/0903fc3023d85dd9_ep.png" alt="Reward visualization 3 EP" data-caption="Reward visualization 3 EP" loading="lazy"><img src="static/train_rewards/0903fc3023d85dd9_hc.png" alt="Reward visualization 3 HC" data-caption="Reward visualization 3 HC" loading="lazy"><img src="static/train_rewards/0903fc3023d85dd9_ego_areas.png" alt="Reward visualization 3 Ego-area" data-caption="Reward visualization 3 Ego-area" loading="lazy"><img src="static/train_rewards/0903fc3023d85dd9_ttc_time.png" alt="Reward visualization 3 TTC-time" data-caption="Reward visualization 3 TTC-time" loading="lazy">
+      </div>
+    </div>
+    <div class="reward-scene-card">
+      <div class="reward-grid">
+        <img src="static/train_rewards/71e2dcde8049599f_bev.png" alt="Reward visualization 4 BEV view" data-caption="Reward visualization 4 BEV view" loading="lazy"><img src="static/train_rewards/71e2dcde8049599f_pdms.png" alt="Reward visualization 4 PDMS" data-caption="Reward visualization 4 PDMS" loading="lazy"><img src="static/train_rewards/71e2dcde8049599f_ep.png" alt="Reward visualization 4 EP" data-caption="Reward visualization 4 EP" loading="lazy"><img src="static/train_rewards/71e2dcde8049599f_hc.png" alt="Reward visualization 4 HC" data-caption="Reward visualization 4 HC" loading="lazy"><img src="static/train_rewards/71e2dcde8049599f_ego_areas.png" alt="Reward visualization 4 Ego-area" data-caption="Reward visualization 4 Ego-area" loading="lazy"><img src="static/train_rewards/71e2dcde8049599f_ttc_time.png" alt="Reward visualization 4 TTC-time" data-caption="Reward visualization 4 TTC-time" loading="lazy">
+      </div>
+    </div>
+    <div class="reward-scene-card">
+      <div class="reward-grid">
+        <img src="static/train_rewards/2a30f62b2a3859b5_bev.png" alt="Reward visualization 5 BEV view" data-caption="Reward visualization 5 BEV view" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_pdms.png" alt="Reward visualization 5 PDMS" data-caption="Reward visualization 5 PDMS" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ep.png" alt="Reward visualization 5 EP" data-caption="Reward visualization 5 EP" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_hc.png" alt="Reward visualization 5 HC" data-caption="Reward visualization 5 HC" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ego_areas.png" alt="Reward visualization 5 Ego-area" data-caption="Reward visualization 5 Ego-area" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ttc_time.png" alt="Reward visualization 5 TTC-time" data-caption="Reward visualization 5 TTC-time" loading="lazy">
+      </div>
+    </div>
+  </section>
 <h3 class="gallery-title results-subhead">Qualitative comparison</h3><p class="section-desc">Side-by-side comparisons against DiffusionDrive, DiffusionDriveV2, and iPad. We show <em>all</em> proposals generated by each planner, colored by PDMS from 0 (<span class="pdms-red">red</span>) to 1 (<span class="pdms-green">green</span>).</p>
   
   <section class="gallery" id="videos">
@@ -195,7 +232,7 @@
         </div></div></details>
   </section>
   <section class="gallery" id="frames">
-    <h3 class="gallery-title">Per-frame comparisons</h3>
+    <h3 class="gallery-title" style="margin-top:36px">Per-frame comparisons</h3>
     <p class="section-desc">Per-frame visualizations comparing four planners. Click any image to enlarge.</p>
     
     <section class="subsection" id="sub-1">

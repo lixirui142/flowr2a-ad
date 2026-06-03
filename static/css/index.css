@@ -60,6 +60,8 @@ a:hover { text-decoration: underline; }
   font-size: 14px;
   margin: 0 0 22px;
 }
+.hero .affil-inst { margin: 0 0 2px; }
+.hero .affil-role { margin: 0 0 22px; font-size: 13px; }
 .hero .venue {
   color: var(--accent);
   font-weight: 600;
@@ -343,9 +345,11 @@ section.subsection > h3 {
   min-width: 0;
 }
 .carousel-track > .video-card,
-.carousel-track > .frame-card { display: none; margin: 0; }
+.carousel-track > .frame-card,
+.carousel-track > .reward-scene-card { display: none; margin: 0; }
 .carousel-track > .video-card.active,
-.carousel-track > .frame-card.active { display: block; }
+.carousel-track > .frame-card.active,
+.carousel-track > .reward-scene-card.active { display: block; }
 .carousel-counter {
   text-align: center;
   font-size: 12px;
@@ -432,6 +436,62 @@ details.more > summary::before { content: "+"; font-size: 18px; line-height: 1; 
 details.more[open] > summary::before { content: "−"; }
 details.more > summary:hover { background: #d8e3ff; }
 details.more > .more-list { margin-top: 16px; }
+
+/* ---- Training reward visualization ---- */
+.reward-gallery {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+}
+.reward-header {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+  margin: 6px 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  position: sticky;
+  top: 48px;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(6px);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  z-index: 5;
+}
+.reward-header > div {
+  padding: 4px 0;
+}
+.reward-scene-card {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 18px;
+}
+.reward-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 6px;
+}
+.reward-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+  background: #fff;
+  cursor: zoom-in;
+}
+@media (max-width: 900px) {
+  .reward-header,
+  .reward-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .reward-header {
+    display: none;
+  }
+}
 
 /* ---- Framework section ---- */
 .framework-fig {

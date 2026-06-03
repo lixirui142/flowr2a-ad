@@ -11,6 +11,7 @@ import re
 
 ROOT = Path(__file__).parent
 SUPP = ROOT.parent / "paper" / "69b90d5cd9d4bdcb2d603ac2" / "supplementary" / "supplementary" / "index.html"
+TRAIN_REWARDS = ROOT / "static" / "train_rewards"
 
 # ---- Pull <main>...</main> from supplementary and rewrite asset paths ----
 supp_html = SUPP.read_text(encoding="utf-8")
@@ -113,7 +114,6 @@ HERO = """
     <sup>2</sup>Changan Automobile
   </p>
   <div class="badges">
-    <a class="badge" href="static/FlowR2A.pdf"><span>Paper</span></a>
     <a class="badge" href="#"><span>arXiv</span></a>
     <a class="badge" href="https://github.com/lixirui142/FlowR2A"><span>Code</span></a>
     <a class="badge" href="#bibtex"><span>BibTeX</span></a>
@@ -167,7 +167,7 @@ QUALITATIVE = (
 FRAMEWORK = """
 <section class="section" id="framework">
   <h2>Framework</h2>
-  <p class="section-desc" style="max-width:none">FlowR2A unifies the dense reward supervision of scoring-based methods with the dynamic proposal generation of anchor-based methods, all within a single generative model.</p>
+  <p class="section-desc">FlowR2A unifies the dense reward supervision of scoring-based methods with the dynamic proposal generation of anchor-based methods, all within a single generative model.</p>
 
   <figure class="framework-fig">
     <img src="static/images/pipeline-v2.png" alt="Training pipeline of FlowR2A">
@@ -217,6 +217,59 @@ EXPERIMENTS = """
   </div>
 """
 
+def build_train_reward_vis():
+    metric_order = [
+        ("bev", "BEV view"),
+        ("pdms", "PDMS"),
+        ("ep", "EP"),
+        ("hc", "HC"),
+        ("ego_areas", "Ego-area"),
+        ("ttc_time", "TTC-time"),
+    ]
+    scene_tokens = [
+        "c5bdf922a7c75e46",
+        "0a678d2136b35b56",
+        "0903fc3023d85dd9",
+        "71e2dcde8049599f",
+        "2a30f62b2a3859b5",
+    ]
+
+    cards = []
+    for idx, token in enumerate(scene_tokens, start=1):
+        if not all((TRAIN_REWARDS / f"{token}_{metric}.png").exists() for metric, _ in metric_order):
+            continue
+        imgs = []
+        for metric, label in metric_order:
+            rel = (TRAIN_REWARDS / f"{token}_{metric}.png").relative_to(ROOT).as_posix()
+            caption = f"Reward visualization {idx} {label}"
+            imgs.append(
+                f'<img src="{rel}" alt="{caption}" data-caption="{caption}" loading="lazy">'
+            )
+        cards.append(
+            '    <div class="reward-scene-card">\n'
+            '      <div class="reward-grid">\n'
+            f'        {"".join(imgs)}\n'
+            '      </div>\n'
+            '    </div>'
+        )
+
+    body = "\n".join(cards)
+    return f"""
+  <h3 class="gallery-title results-subhead">Training reward visualization</h3>
+  <p class="section-desc">Fine-grained reward labels used in training partition dense trajectories in complementary ways, exposing rich signals for the model to internalize action-reward correlations.</p>
+  <section class="gallery reward-gallery" id="train-rewards">
+    <div class="reward-header">
+      <div>BEV view</div>
+      <div>PDMS</div>
+      <div>EP</div>
+      <div>HC</div>
+      <div>Ego-area</div>
+      <div>TTC-time</div>
+    </div>
+{body}
+  </section>
+"""
+
 BIBTEX = """
 <section class="section" id="bibtex">
   <h2>BibTeX</h2>
@@ -241,6 +294,6 @@ FOOTER = """
 </html>
 """
 
-out = HEAD + HERO + RESULTS_OPEN + EXPERIMENTS + QUALITATIVE + RESULTS_CLOSE + FRAMEWORK + BIBTEX + FOOTER
+out = HEAD + HERO + RESULTS_OPEN + EXPERIMENTS + build_train_reward_vis() + QUALITATIVE + RESULTS_CLOSE + FRAMEWORK + BIBTEX + FOOTER
 (ROOT / "index.html").write_text(out, encoding="utf-8")
 print(f"Wrote {ROOT/'index.html'}  ({len(out):,} bytes)")

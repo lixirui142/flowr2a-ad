@@ -32,7 +32,7 @@
     var prev = wrap.querySelector('.carousel-prev');
     var next = wrap.querySelector('.carousel-next');
 
-    // Move the compare-header inside the viewport so its 4 columns line up
+    // Move the column header inside the viewport so its columns line up
     // with the slide's content (the arrow buttons occupy outer grid cells).
     if (header) viewport.insertBefore(header, track);
 
@@ -61,7 +61,7 @@
     if (!container) return;
     var slides = Array.from(container.querySelectorAll(slideSelector));
     if (slides.length < 2) return; // nothing to gain from a 1-slide carousel
-    var header = container.querySelector(':scope > .compare-header');
+    var header = container.querySelector(':scope > .compare-header, :scope > .reward-header');
     var carousel = buildCarousel(slides, header);
     // Remove the original grids and the "Show N more" details that held these slides.
     container.querySelectorAll('.video-grid, .more-list, details.more').forEach(function (el) {
@@ -72,6 +72,8 @@
 
   // Videos: one carousel for the whole #videos gallery.
   carouselize(document.getElementById('videos'), '.video-card');
+  // Training rewards: one carousel over scenes.
+  carouselize(document.getElementById('train-rewards'), '.reward-scene-card');
   // Frames: one carousel per subsection (Forward / Turning).
   document.querySelectorAll('#frames .subsection, section.subsection').forEach(function (sub) {
     carouselize(sub, '.frame-card');
@@ -100,7 +102,7 @@
   });
   document.body.addEventListener('click', function (e) {
     var t = e.target;
-    if (t.tagName === 'IMG' && t.closest('.compare-table')) {
+    if (t.tagName === 'IMG' && (t.closest('.compare-table') || t.closest('.reward-grid'))) {
       var caption = t.getAttribute('data-caption') || t.alt || '';
       openLightbox(t.src, caption);
     }

@@ -2,3 +2,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .vscode/
+static/qualitative/front3/
+static/qualitative/frames/
+static/qualitative/videos/
+*.py

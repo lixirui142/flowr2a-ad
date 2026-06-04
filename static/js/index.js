@@ -20,17 +20,18 @@
     wrap.className = 'carousel';
     wrap.tabIndex = 0;
     wrap.innerHTML =
-      '<button type="button" class="carousel-btn carousel-prev" aria-label="Previous">‹</button>' +
+      '<button type="button" class="carousel-btn carousel-prev" aria-label="Previous">&lsaquo;</button>' +
       '<div class="carousel-viewport">' +
         '<div class="carousel-track"></div>' +
         '<div class="carousel-counter"></div>' +
       '</div>' +
-      '<button type="button" class="carousel-btn carousel-next" aria-label="Next">›</button>';
+      '<button type="button" class="carousel-btn carousel-next" aria-label="Next">&rsaquo;</button>';
     var viewport = wrap.querySelector('.carousel-viewport');
     var track = wrap.querySelector('.carousel-track');
     var counter = wrap.querySelector('.carousel-counter');
     var prev = wrap.querySelector('.carousel-prev');
     var next = wrap.querySelector('.carousel-next');
+    var syncTimer = null;
 
     // Move the column header inside the viewport so its columns line up
     // with the slide's content (the arrow buttons occupy outer grid cells).
@@ -42,10 +43,74 @@
     });
 
     var cur = 0;
+    function syncSlideVideos(slide) {
+      if (syncTimer) {
+        clearInterval(syncTimer);
+        syncTimer = null;
+      }
+
+      slides.forEach(function (s) {
+        s.querySelectorAll('video').forEach(function (v) {
+          v.pause();
+        });
+      });
+
+      var videos = Array.from(slide.querySelectorAll('video'));
+      if (!videos.length) return;
+
+      videos.forEach(function (v) {
+        v.muted = true;
+        v.loop = true;
+        v.playbackRate = 1;
+        try { v.currentTime = 0; } catch (e) {}
+      });
+
+      function playAll() {
+        videos.forEach(function (v) {
+          var p = v.play();
+          if (p && typeof p.catch === 'function') p.catch(function () {});
+        });
+      }
+
+      if (videos.every(function (v) { return v.readyState >= 2; })) {
+        playAll();
+      } else {
+        var remaining = videos.length;
+        videos.forEach(function (v) {
+          if (v.readyState >= 2) {
+            remaining -= 1;
+          } else {
+            v.addEventListener('canplay', function onCanPlay() {
+              v.removeEventListener('canplay', onCanPlay);
+              remaining -= 1;
+              if (remaining <= 0) playAll();
+            });
+          }
+        });
+        if (remaining <= 0) playAll();
+      }
+
+      syncTimer = setInterval(function () {
+        if (!slide.classList.contains('active')) return;
+        var master = videos[0];
+        videos.slice(1).forEach(function (v) {
+          if (Math.abs(v.currentTime - master.currentTime) > 0.08) {
+            try { v.currentTime = master.currentTime; } catch (e) {}
+          }
+          if (master.paused && !v.paused) v.pause();
+          if (!master.paused && v.paused) {
+            var p = v.play();
+            if (p && typeof p.catch === 'function') p.catch(function () {});
+          }
+        });
+      }, 250);
+    }
+
     function show(i) {
       cur = (i + slides.length) % slides.length;
       slides.forEach(function (s, j) { s.classList.toggle('active', j === cur); });
       counter.textContent = (cur + 1) + ' / ' + slides.length;
+      syncSlideVideos(slides[cur]);
     }
     prev.addEventListener('click', function () { show(cur - 1); });
     next.addEventListener('click', function () { show(cur + 1); });
@@ -61,7 +126,7 @@
     if (!container) return;
     var slides = Array.from(container.querySelectorAll(slideSelector));
     if (slides.length < 2) return; // nothing to gain from a 1-slide carousel
-    var header = container.querySelector(':scope > .compare-header, :scope > .reward-header');
+    var header = container.querySelector(':scope > .compare-header, :scope > .frame-compare-header, :scope > .reward-header');
     var carousel = buildCarousel(slides, header);
     // Remove the original grids and the "Show N more" details that held these slides.
     container.querySelectorAll('.video-grid, .more-list, details.more').forEach(function (el) {

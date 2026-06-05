@@ -21,11 +21,10 @@
    owns the page chrome. This file only carries the FlowR2A gallery, figure,
    sampling, reward and bibtex component styles. */
 
-/* ---- Hero / TL;DR band spacing (mirror VidToMe's tight rhythm) ---- */
-/* Pull the TL;DR card up close to the link buttons, and the teaser up close
-   to the TL;DR card — instead of stacking two full hero-body gaps. */
+/* ---- Hero band spacing (mirror VidToMe's tight rhythm) ---- */
+/* Keep the teaser tucked close under the link buttons instead of a full
+   hero-body gap. */
 .title-hero .hero-body { padding-bottom: 1.5rem; }
-.tldr-hero .hero-body { padding-top: 0; padding-bottom: 1.5rem; }
 
 /* ---- TL;DR card (reused for the abstract callout) ---- */
 .tldr-card {
@@ -56,6 +55,41 @@ p.section-desc {
   height: auto;
   display: block;
   border-radius: 6px;
+}
+
+/* ---- Highlights list (key points before Framework) ---- */
+.highlight-list {
+  list-style: none;
+  max-width: 860px;
+  margin: 16px auto 4px;
+  padding: 0;
+}
+.highlight-list li {
+  position: relative;
+  padding: 12px 0 12px 30px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.highlight-list li:last-child { border-bottom: none; }
+.highlight-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 21px;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+.highlight-list li strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+.highlight-list li em {
+  font-style: italic;
 }
 
 .result-highlights {

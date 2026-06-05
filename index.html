@@ -72,15 +72,6 @@
     </div>
   </section>
 
-  <!-- ===================== TL;DR ===================== -->
-  <section class="hero tldr-hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="tldr-card"><strong>TL;DR.</strong> Instead of treating simulation rewards as discriminative targets, FlowR2A treats them as a condition. A flow-matching decoder learns the reward-to-action distribution p(a|r) from dense trajectory&ndash;reward pairs, unifying dense supervision with generative proposal modeling.</div>
-      </div>
-    </div>
-  </section>
-
   <!-- ===================== Teaser ===================== -->
   <section class="hero teaser">
     <div class="container is-max-desktop">
@@ -94,16 +85,19 @@
     </div>
   </section>
 
-  <!-- ===================== Abstract ===================== -->
-  <section class="hero is-light">
+  <section class="hero is-small is-light">
     <div class="hero-body">
       <div class="container is-max-desktop">
         <div class="columns is-centered has-text-centered">
-          <div class="column is-four-fifths">
-            <h2 class="title is-3">Abstract</h2>
-            <div class="content has-text-justified">
-              <p>Multimodal driving planning faces a long-standing tension between two paradigms: scoring-based methods benefit from dense reward supervision but are confined to a fixed action vocabulary, while anchor-based methods generate proposals dynamically yet suffer from sparse supervision constrained to a single ground-truth trajectory. In this work, we propose <b>FlowR2A</b>, which resolves this tension by reframing simulation-based rewards from discriminative targets into generative conditions. By learning the reward-conditioned action distribution from dense trajectory-reward pairs with a flow-matching decoder, FlowR2A unifies the dense supervision of scoring-based methods with the proposal generation of anchor-based methods in a single generative model, forcing the model to internalize the correlation between an action and its outcomes in safety, progress, comfort, and rule compliance. To balance hard safety constraints against soft progress objectives, we introduce fine-grained per-timestep reward conditioning and reward noise augmentation. The generative formulation naturally supports controllable test-time sampling via reward guidance and anchored sampling, producing high-quality proposals. FlowR2A achieves state-of-the-art results on the NAVSIM v1 and v2 benchmarks, with multimodal proposals of substantially higher quality than prior methods.</p>
-            </div>
+          <div class="column">
+            <h2 class="title is-3">Highlights</h2>
+<div class="has-text-left"><ul class="highlight-list">
+      <li><strong>Rewards as a condition, not a target.</strong> We reframe simulation rewards from discriminative scores into a generative condition, and learn the reward-conditioned action distribution <em>p(a|r)</em> with a flow-matching decoder.</li>
+      <li><strong>Dense training supervision.</strong> Every simulated trajectory&ndash;reward pair becomes usable training signal, unifying the dense supervision of scoring-based planners with the dynamic proposal generation of anchor-based planners in a single generative model.</li>
+      <li><strong>Fine-grained reward signals.</strong> Rewards cover safety, progress, comfort, and rule compliance, exposing rich signals for the model to internalize action&ndash;reward correlations.</li>
+      <li><strong>Controllable test-time sampling.</strong> A reward target and an initial noise level expose an interpretable 2D sampling space, steering proposals via reward guidance and anchored sampling.</li>
+      <li><strong>State-of-the-art, high-quality proposals.</strong> FlowR2A tops the NAVSIM&nbsp;v1 / v2 benchmarks under a lightweight backbone, with multimodal proposals of substantially higher quality than prior methods.</li>
+    </ul></div>
           </div>
         </div>
       </div>
@@ -139,40 +133,6 @@
     </div>
   </section>
   <section class="hero is-small is-light">
-    <div class="hero-body">
-      <div class="container is-fluid">
-        <div class="columns is-centered has-text-centered">
-          <div class="column is-full">
-            <h2 class="title is-3">Highlights</h2>
-<div class="results-body has-text-left"><div class="result-highlights" aria-label="Key FlowR2A results">
-    <div class="result-highlight">
-      <span class="result-kicker">Qualitative behavior</span>
-      <strong>Cleaner multimodal plans</strong>
-      <p>Side-by-side NAVSIM clips show safer, higher-PDMS proposal distributions.</p>
-    </div>
-    <div class="result-highlight">
-      <span class="result-kicker">Proposal quality</span>
-      <strong>Higher proposal quality</strong>
-      <p>FlowR2A keeps strong proposals across the candidate set.</p>
-    </div>
-    <div class="result-highlight">
-      <span class="result-kicker">Sampling control</span>
-      <strong>Reward-guided diversity</strong>
-      <p>Reward target and initial noise expose an interpretable 2D sampling space.</p>
-    </div>
-    <div class="result-highlight">
-      <span class="result-kicker">Training signal</span>
-      <strong>Dense reward supervision</strong>
-      <p>Every simulated action-reward pair contributes usable learning signal.</p>
-    </div>
-  </div>
-</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="hero is-small">
     <div class="hero-body">
       <div class="container is-fluid">
         <div class="columns is-centered has-text-centered">

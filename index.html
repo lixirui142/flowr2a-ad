@@ -1,64 +1,150 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FlowR2A: Learning Reward-to-Action Distribution for Multimodal Driving Planning</title>
-<meta name="description" content="FlowR2A learns the reward-conditioned action distribution p(a|r) with flow matching, achieving SOTA multimodal planning on NAVSIM.">
-<link rel="stylesheet" href="static/css/index.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="FlowR2A learns the reward-conditioned action distribution p(a|r) with flow matching, achieving SOTA multimodal planning on NAVSIM.">
+  <meta property="og:title" content="FlowR2A: Learning Reward-to-Action Distribution for Multimodal Driving Planning" />
+  <meta property="og:description" content="A flow-matching planner that learns the reward-to-action distribution p(a|r) from dense trajectory-reward pairs." />
+  <title>FlowR2A: Learning Reward-to-Action Distribution for Multimodal Driving Planning</title>
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/bulma.min.css">
+  <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="static/css/vidtome.css">
+  <link rel="stylesheet" href="static/css/gallery.css">
+  <script defer src="static/js/fontawesome.all.min.js"></script>
 </head>
+
 <body>
 
-<header class="hero">
-  <h1 class="paper-title">FlowR2A: Learning Reward-to-Action Distribution<br>for Multimodal Driving Planning</h1>
-  <p class="authors">
-    <a href="https://lixirui142.github.io/">Xirui Li</a><sup>1</sup>,
-    <a href="https://happinesslz.github.io/">Zhe Liu</a><sup>1&dagger;</sup>,
-    <a href="https://shuluoshu.github.io/">Xiaoqing Ye</a><sup>2&dagger;*</sup>,
-    Wenhua Han<sup>2</sup>,
-    Yifeng Pan<sup>2</sup>,
-    Junyu Han<sup>2</sup>,
-    <a href="https://i.cs.hku.hk/~hszhao/index.html">Hengshuang Zhao</a><sup>1*</sup>
-  </p>
-  <p class="affil">
-    <sup>1</sup>The University of Hong Kong &nbsp;&nbsp;
-    <sup>2</sup>Changan Automobile
-  </p>
-  <p class="affil-role">
-    <sup>&dagger;</sup>Project lead &nbsp;&nbsp;
-    <sup>*</sup>Corresponding author
-  </p>
-  <div class="badges">
-    <a class="badge" href="#"><span>arXiv</span></a>
-    <a class="badge" href="https://github.com/lixirui142/FlowR2A"><span>Code</span></a>
-    <a class="badge" href="#bibtex"><span>BibTeX</span></a>
-  </div>
-</header>
+  <!-- ===================== Hero ===================== -->
+  <section class="hero title-hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-2 publication-title">FlowR2A: Learning Reward-to-Action Distribution<br>for Multimodal Driving Planning</h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><a href="https://lixirui142.github.io/" target="_blank">Xirui Li</a><sup>1</sup>,</span>
+              <span class="author-block"><a href="https://happinesslz.github.io/" target="_blank">Zhe Liu</a><sup>1&dagger;</sup>,</span>
+              <span class="author-block"><a href="https://shuluoshu.github.io/" target="_blank">Xiaoqing Ye</a><sup>2&dagger;*</sup>,</span>
+              <span class="author-block">Wenhua Han<sup>2</sup>,</span>
+              <span class="author-block">Yifeng Pan<sup>2</sup>,</span>
+              <span class="author-block">Junyu Han<sup>2</sup>,</span>
+              <span class="author-block"><a href="https://i.cs.hku.hk/~hszhao/index.html" target="_blank">Hengshuang Zhao</a><sup>1*</sup></span>
+            </div>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup><a href="https://www.hku.hk/" target="_blank">The University of Hong Kong</a>,</span>
+              <span class="author-block"><sup>2</sup><a href="https://www.changan.com.cn/" target="_blank">Changan Automobile</a></span>
+            </div>
+            <div class="is-size-6 publication-authors">
+              <span class="author-block"><sup>&dagger;</sup>Project lead</span>
+              <span class="author-block"><sup>*</sup>Corresponding author</span>
+            </div>
 
-<section class="tldr">
-  <div class="tldr-card">
-    <strong>TL;DR.</strong>
-    Instead of treating simulation rewards as discriminative targets, FlowR2A treats them as a condition. A flow-matching decoder learns the reward-to-action distribution <em>p(a&nbsp;|&nbsp;r)</em> from dense trajectory&ndash;reward pairs, unifying dense supervision with generative proposal modeling.
-  </div>
-</section>
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="#" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="ai ai-arxiv"></i></span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="https://github.com/lixirui142/FlowR2A" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fab fa-github"></i></span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="#bibtex" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon"><i class="fas fa-quote-left"></i></span>
+                    <span>BibTeX</span>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section" id="teaser">
-  <div class="teaser-wrap">
-    <video id="teaser-video" autoplay muted loop playsinline>
-      <source src="static/videos/teaser.mp4" type="video/mp4">
-    </video>
-  </div>
-</section>
+  <!-- ===================== TL;DR ===================== -->
+  <section class="hero tldr-hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="tldr-card"><strong>TL;DR.</strong> Instead of treating simulation rewards as discriminative targets, FlowR2A treats them as a condition. A flow-matching decoder learns the reward-to-action distribution p(a|r) from dense trajectory&ndash;reward pairs, unifying dense supervision with generative proposal modeling.</div>
+      </div>
+    </div>
+  </section>
 
-<nav class="sticky-nav"><div class="inner">
-  <a href="#results">Results</a>
-  <a href="#framework">Framework</a>
-  <a href="#bibtex">BibTeX</a>
-</div></nav>
+  <!-- ===================== Teaser ===================== -->
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="teaser-wrap">
+          <video id="teaser-video" autoplay muted loop playsinline>
+            <source src="static/videos/teaser.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="section" id="results">
-  <h2>Results</h2>
-  <div class="result-highlights" aria-label="Key FlowR2A results">
+  <!-- ===================== Abstract ===================== -->
+  <section class="hero is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>Multimodal driving planning faces a long-standing tension between two paradigms: scoring-based methods benefit from dense reward supervision but are confined to a fixed action vocabulary, while anchor-based methods generate proposals dynamically yet suffer from sparse supervision constrained to a single ground-truth trajectory. In this work, we propose <b>FlowR2A</b>, which resolves this tension by reframing simulation-based rewards from discriminative targets into generative conditions. By learning the reward-conditioned action distribution from dense trajectory-reward pairs with a flow-matching decoder, FlowR2A unifies the dense supervision of scoring-based methods with the proposal generation of anchor-based methods in a single generative model, forcing the model to internalize the correlation between an action and its outcomes in safety, progress, comfort, and rule compliance. To balance hard safety constraints against soft progress objectives, we introduce fine-grained per-timestep reward conditioning and reward noise augmentation. The generative formulation naturally supports controllable test-time sampling via reward guidance and anchored sampling, producing high-quality proposals. FlowR2A achieves state-of-the-art results on the NAVSIM v1 and v2 benchmarks, with multimodal proposals of substantially higher quality than prior methods.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== Framework ===================== -->
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Framework</h2>
+            <div class="framework-body has-text-left">
+<p class="section-desc">FlowR2A unifies the dense reward supervision of scoring-based methods with the dynamic proposal generation of anchor-based methods, all within a single generative model.</p>
+
+  <figure class="framework-fig">
+    <img src="static/images/pipeline-v2.png" alt="Training pipeline of FlowR2A">
+    <figcaption>
+      <strong>Training.</strong> A flow-matching action decoder is conditioned on fine-grained reward signals (safety, progress, comfort, rule compliance) injected via AdaLN. Every action&ndash;reward pair from simulation becomes a valid training sample, so the model internalizes the correlation between an action and its outcomes rather than imitating a single ground-truth trajectory.
+    </figcaption>
+  </figure>
+
+  <figure class="framework-fig">
+    <img src="static/images/inference.png" alt="Inference pipeline of FlowR2A">
+    <figcaption>
+      <strong>Inference.</strong> Classifier-free reward guidance plus zero-shot anchored sampling span a 2D space of (score target, initial noise level). This produces a diverse set of high-quality proposals that a lightweight mode selector ranks for the final action.
+    </figcaption>
+  </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Highlights</h2>
+<div class="results-body has-text-left"><div class="result-highlights" aria-label="Key FlowR2A results">
     <div class="result-highlight">
       <span class="result-kicker">Qualitative behavior</span>
       <strong>Cleaner multimodal plans</strong>
@@ -67,7 +153,7 @@
     <div class="result-highlight">
       <span class="result-kicker">Proposal quality</span>
       <strong>Higher proposal quality</strong>
-      <p>FlowR2A keeps strong proposals across the candidate set, not only at the selected mode.</p>
+      <p>FlowR2A keeps strong proposals across the candidate set.</p>
     </div>
     <div class="result-highlight">
       <span class="result-kicker">Sampling control</span>
@@ -80,17 +166,35 @@
       <p>Every simulated action-reward pair contributes usable learning signal.</p>
     </div>
   </div>
-<h3 class="gallery-title results-subhead">Qualitative comparison</h3><p class="section-desc">Side-by-side comparisons against DiffusionDrive, DiffusionDriveV2, and iPad. We show <em>all</em> proposals generated by each planner, colored by PDMS from 0 (<span class="pdms-red">red</span>) to 1 (<span class="pdms-green">green</span>).</p>
-  
-  <section class="gallery" id="videos">
-    <h3 class="gallery-title">Video comparisons</h3>
-    <p class="section-desc">Side-by-side MP4 comparisons across selected NAVSIM clips. Each row shows one planner with BEV and camera views aligned.</p>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Video comparisons</h2>
+<p class="section-desc">Each planner's proposals are colored by PDMS, from <span class="pdms-red">red&nbsp;(0)</span> to <span class="pdms-green">green&nbsp;(1)</span>.</p>
+<div class="results-body has-text-left"><section class="gallery" id="videos">
     <div class="video-grid"><div class="video-card combined-video-card" id="video-134"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 134 comparison"><source src="static/qualitative/video_combined/clip_134_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-193"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 193 comparison"><source src="static/qualitative/video_combined/clip_193_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-38"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 38 comparison"><source src="static/qualitative/video_combined/clip_38_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-170"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 170 comparison"><source src="static/qualitative/video_combined/clip_170_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-201"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 201 comparison"><source src="static/qualitative/video_combined/clip_201_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-49"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 49 comparison"><source src="static/qualitative/video_combined/clip_49_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-175"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 175 comparison"><source src="static/qualitative/video_combined/clip_175_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-240"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 240 comparison"><source src="static/qualitative/video_combined/clip_240_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-257"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 257 comparison"><source src="static/qualitative/video_combined/clip_257_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-270"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 270 comparison"><source src="static/qualitative/video_combined/clip_270_combined.mp4" type="video/mp4"></video></div></div><details class="more"><summary>Show 13 more</summary><div class="video-grid more-list"><div class="video-card combined-video-card" id="video-282"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 282 comparison"><source src="static/qualitative/video_combined/clip_282_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-336"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 336 comparison"><source src="static/qualitative/video_combined/clip_336_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-361"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 361 comparison"><source src="static/qualitative/video_combined/clip_361_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-453"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 453 comparison"><source src="static/qualitative/video_combined/clip_453_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-473"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 473 comparison"><source src="static/qualitative/video_combined/clip_473_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-474"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 474 comparison"><source src="static/qualitative/video_combined/clip_474_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-522"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 522 comparison"><source src="static/qualitative/video_combined/clip_522_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-577"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 577 comparison"><source src="static/qualitative/video_combined/clip_577_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-606"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 606 comparison"><source src="static/qualitative/video_combined/clip_606_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-1100"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 1100 comparison"><source src="static/qualitative/video_combined/clip_1100_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-1162"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 1162 comparison"><source src="static/qualitative/video_combined/clip_1162_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-1189"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 1189 comparison"><source src="static/qualitative/video_combined/clip_1189_combined.mp4" type="video/mp4"></video></div><div class="video-card combined-video-card" id="video-1297"><div class="combined-video-labels"><div class="combined-video-label">DiffusionDrive</div><div class="combined-video-label">DiffusionDriveV2</div><div class="combined-video-label">iPad</div><div class="combined-video-label ours">FlowR2A (ours)</div></div><video autoplay muted loop playsinline preload="metadata" aria-label="clip 1297 comparison"><source src="static/qualitative/video_combined/clip_1297_combined.mp4" type="video/mp4"></video></div></div></details>
   </section>
-  <section class="gallery" id="frames">
-    <h3 class="gallery-title" style="margin-top:36px">Per-frame comparisons</h3>
-    <p class="section-desc">Per-frame visualizations comparing four planners. Click any image to enlarge.</p>
-    
+  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Per-frame comparisons</h2>
+<div class="results-body has-text-left"><section class="gallery" id="frames">
     <section class="subsection" id="sub-1">
       <h3>Forward scenes</h3>
       
@@ -427,16 +531,49 @@
     </section>
   </section>
 
-  <h3 class="gallery-title results-subhead" style="margin-top:8px">Proposal quality</h3>
-  <p class="section-desc">FlowR2A produces consistently high-quality proposal candidates, surpassing the prior multimodal planner iPad on both single and average proposal quality.</p>
-  <div class="exp-card exp-full">
+  </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Proposal quality</h2>
+<p class="section-desc">FlowR2A produces consistently high-quality proposal candidates, surpassing the prior multimodal planner iPad on both single and average proposal quality.</p>
+<div class="exp-card exp-full">
     <img src="static/images/topk_comparison_linear_v2.png" alt="top-k comparison">
     <p>FlowR2A's top-K proposals dominate prior planners across K.</p>
   </div>
-
-  <h3 class="gallery-title results-subhead">Interactive sampling space</h3>
-  <p class="section-desc">FlowR2A offers flexible sampling control through two intuitive knobs: a reward target <em>r<sub>high</sub></em> steers proposals toward higher-PDMS regions, and an initial noise level <em>t<sub>init</sub></em> trades anchor fidelity for sampling diversity.</p>
-  <div class="exp-card exp-full">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">NAVSIM Performance</h2>
+<p class="section-desc">FlowR2A achieves state-of-the-art performance on the NAVSIM&nbsp;v1 navtest benchmark under a lightweight backbone.</p>
+<figure class="navsim-fig"><img src="static/images/navsim-v1.png" alt="NAVSIM v1 navtest benchmark results"></figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small is-light">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <h2 class="title is-3">Interactive sampling space</h2>
+<p class="section-desc">FlowR2A offers flexible sampling control through two intuitive knobs: a reward target <em>r<sub>high</sub></em> steers proposals toward higher-PDMS regions, and an initial noise level <em>t<sub>init</sub></em> trades anchor fidelity for sampling diversity.</p>
+<div class="exp-card exp-full">
     <div class="sampling-interactive">
       <div class="sampling-controls">
         <div class="slider-row">
@@ -456,10 +593,19 @@
       <p class="sampling-hint">Higher <em>r<sub>high</sub></em> guides proposals toward higher-reward regions; higher <em>t<sub>init</sub></em> introduces more sampling diversity around the anchor.</p>
     </div>
   </div>
-
-  <h3 class="gallery-title results-subhead">Training reward visualization</h3>
-  <p class="section-desc">Fine-grained reward labels used in training partition dense trajectories in complementary ways, exposing rich signals for the model to internalize action-reward correlations.</p>
-  <section class="gallery reward-gallery" id="train-rewards">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="hero is-small">
+    <div class="hero-body">
+      <div class="container is-fluid">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full">
+            <h2 class="title is-3">Training reward visualization</h2>
+<p class="section-desc">Fine-grained reward labels used in training partition dense trajectories in complementary ways, exposing rich signals for the model to internalize action-reward correlations.</p>
+<div class="results-body has-text-left"><section class="gallery reward-gallery" id="train-rewards">
     <div class="reward-header">
       <div>BEV view</div>
       <div>PDMS</div>
@@ -493,43 +639,45 @@
         <img src="static/train_rewards/2a30f62b2a3859b5_bev.png" alt="Reward visualization 5 BEV view" data-caption="Reward visualization 5 BEV view" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_pdms.png" alt="Reward visualization 5 PDMS" data-caption="Reward visualization 5 PDMS" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ep.png" alt="Reward visualization 5 EP" data-caption="Reward visualization 5 EP" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_hc.png" alt="Reward visualization 5 HC" data-caption="Reward visualization 5 HC" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ego_areas.png" alt="Reward visualization 5 Ego-area" data-caption="Reward visualization 5 Ego-area" loading="lazy"><img src="static/train_rewards/2a30f62b2a3859b5_ttc_time.png" alt="Reward visualization 5 TTC-time" data-caption="Reward visualization 5 TTC-time" loading="lazy">
       </div>
     </div>
+  </section></div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
-</section>
-<section class="section" id="framework">
-  <h2>Framework</h2>
-  <p class="section-desc">FlowR2A unifies the dense reward supervision of scoring-based methods with the dynamic proposal generation of anchor-based methods, all within a single generative model.</p>
-
-  <figure class="framework-fig">
-    <img src="static/images/pipeline-v2.png" alt="Training pipeline of FlowR2A">
-    <figcaption>
-      <strong>Training.</strong> A flow-matching action decoder is conditioned on fine-grained reward signals (safety, progress, comfort, rule compliance) injected via AdaLN. Every action&ndash;reward pair from simulation becomes a valid training sample, so the model internalizes the correlation between an action and its outcomes rather than imitating a single ground-truth trajectory.
-    </figcaption>
-  </figure>
-
-  <figure class="framework-fig">
-    <img src="static/images/inference.png" alt="Inference pipeline of FlowR2A">
-    <figcaption>
-      <strong>Inference.</strong> Classifier-free reward guidance plus zero-shot anchored sampling span a 2D space of (score target, initial noise level). This produces a diverse set of high-quality proposals that a lightweight mode selector ranks for the final action.
-    </figcaption>
-  </figure>
-</section>
-
-<section class="section" id="bibtex">
-  <h2>BibTeX</h2>
-  <div class="bibtex-wrap">
-    <button class="bibtex-copy">Copy</button>
+  <!-- ===================== BibTeX ===================== -->
+  <section class="hero is-small is-light" id="bibtex">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">BibTeX</h2>
+        <div class="bibtex-wrap">
+          <button class="bibtex-copy">Copy</button>
 <pre>@article{flowr2a2026,
   title         = {FlowR2A: Learning Reward-to-Action Distribution for Multimodal Driving Planning},
   author        = {Li, Xirui and Liu, Zhe and Ye, Xiaoqing and Han, Wenhua and Pan, Yifeng and Han, Junyu and Zhao, Hengshuang},
   journal       = {arXiv preprint arXiv:XXXX.XXXXX},
   year          = {2026}
 }</pre>
-  </div>
-</section>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ===================== Footer ===================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8 has-text-centered">
+          <div class="content">
+            <p>This page borrows the
+              <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
 
-<footer class="page-footer">
-  <p>Page template inspired by the <a href="https://github.com/nerfies/nerfies.github.io">Nerfies project page</a>.</p>
-</footer>
-<script src="static/js/index.js"></script>
+  <script src="static/js/gallery.js"></script>
 </body>
+
 </html>

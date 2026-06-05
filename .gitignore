@@ -6,3 +6,6 @@ static/qualitative/front3/
 static/qualitative/frames/
 static/qualitative/videos/
 *.py
+
+# Legacy/original page skin — archived, not deployed.
+/original/
